@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title></title>
+
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h4>All Items</h4>
+      <ul>
+        <li v-for="(item, index) in groceries">
+          <input type="checkbox" :name="index" :id="index" v-model="item.purchased" />
+          <label :for="index">{{ item.description }}</label>
+        </li>
+      </ul>
+
+      <h4>Purchased</h4>
+      <ul>
+        <li v-for="(item, index) in purchasedGroceries">
+          <input type="checkbox" :name="index" :id="index" v-model="item.purchased" />
+          <label :for="index">{{ item.description }}</label> x <span>{{ item.quantity }}</span>
+        </li>
+      </ul>
+
+      <h4>To Purchase</h4>
+      <ul>
+        <li v-for="(item, index) in toPurchaseGroceries">
+          <input type="checkbox" :name="index" :id="index" v-model="item.purchased" />
+          <label :for="index">{{ item.description }}</label>
+          <input type="text" size="2" v-model="item.quantity" />
+        </li>
+      </ul>
+
+    </div>
+
+    <script src="../lib/vue.js"></script>
+
+    <script>
+
+      let data = {
+        message: 'hello world'
+      }
+
+      new Vue ({
+        el: '#app',
+        data: {
+          groceries: [
+            { description: 'Avocado', quantity: 2, purchased: true },
+            { description: 'Chicken', quantity: 1, purchased: false },
+            { description: 'Carrots', quantity: 10, purchased: false },
+            { description: 'Pears', quantity: 1, purchased: false },
+            { description: 'Peas', quantity: 1, purchased: false },
+            { description: 'Blueberries', quantity: 1, purchased: false },
+          ]
+        },
+        computed: {
+
+          purchasedGroceries() {
+            return this.groceries.filter(item => item.purchased);
+          },
+          toPurchaseGroceries() {
+            return this.groceries.filter(item => ! item.purchased);
+          }
+
+        },
+        method: {
+
+        }
+
+      });
+    
+    </script>
+
+  </body>
+
+</html>
